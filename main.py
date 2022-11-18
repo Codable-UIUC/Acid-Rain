@@ -1,11 +1,16 @@
 import pygame
+import random
+import os
 import sys
 from button import Button
 
 pygame.init()
 
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
 SCREEN = pygame.display.set_mode((1280, 720))
-pygame.display.set_caption("Menu")
+pygame.display.set_caption("Acid Rain")
+clock = pygame.time.Clock()
 
 BG = pygame.image.load("rain.png")
 
@@ -13,14 +18,27 @@ def get_font(size):
     return pygame.font.Font("font.ttf", size)
 
 def play():
+    dictionary = ["apple", "banana", "cat", "dog", "egg", "frog", "goal"]
+    rand_1 = True
+    rand_2 = True
+    rand_3 = True
+    rand_4 = True
+    rand_5 = True
+    level = 0
+    level_count = 30000
+
     while True:
+        clock.tick(30)
+
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
 
-        SCREEN.fill("black")
+        SCREEN.fill(WHITE)
 
-        PLAY_TEXT = get_font(45).render("This is the PLAY screen.", True, "White")
-        PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 260))
-        SCREEN.blit(PLAY_TEXT, PLAY_RECT)
+        # PLAY_TEXT = get_font(45).render("This is the PLAY screen.", True, "White")
+        # PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 260))
+        # SCREEN.blit(PLAY_TEXT, PLAY_RECT)
+
+        myFont = pygame.font.SysFont("arial", 20, False, True)
 
         PLAY_BACK = Button(image=None, pos=(640, 460), 
                             text_input="BACK", font=get_font(75), base_color="White", hovering_color="Green")
@@ -35,6 +53,84 @@ def play():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
                     main_menu()
+        
+        if rand_1 == True:
+            word_1 = myFont.render(dictionary[random.randrange(0, 6)], True, BLACK)
+            text_Rect = word_1.get_rect()
+            text_Rect.x = 10
+            text_Rect.y = 10
+            word_1_x = random.randrange(0, 200)
+            word_1_y = 0
+            speed_1 = random.randrange(1+level, 4+level)
+            rand_1 = False
+        
+        if rand_2 == True:
+            word_2 = myFont.render(dictionary[random.randrange(0, 6)], True, BLACK)
+            text_Rect = word_2.get_rect()
+            text_Rect.x = 10
+            text_Rect.y = 10
+            word_2_x = random.randrange(250, 450)
+            word_2_y = 0
+            speed_2 = random.randrange(1+level, 4+level)
+            rand_2 = False
+
+        if rand_3 == True:
+            word_3 = myFont.render(dictionary[random.randrange(0, 6)], True, BLACK)
+            text_Rect = word_3.get_rect()
+            text_Rect.x = 10
+            text_Rect.y = 10
+            word_3_x = random.randrange(500, 700)
+            word_3_y = 0
+            speed_3 = random.randrange(1+level, 4+level)
+            rand_3 = False
+
+        if rand_4 == True:
+            word_4 = myFont.render(dictionary[random.randrange(0, 6)], True, BLACK)
+            text_Rect = word_4.get_rect()
+            text_Rect.x = 10
+            text_Rect.y = 10
+            word_4_x = random.randrange(750, 950)
+            word_4_y = 0
+            speed_4 = random.randrange(1+level, 4+level)
+            rand_4 = False
+
+        if rand_5 == True:
+            word_5 = myFont.render(dictionary[random.randrange(0, 6)], True, BLACK)
+            text_Rect = word_5.get_rect()
+            text_Rect.x = 10
+            text_Rect.y = 10
+            word_5_x = random.randrange(1000, 1200)
+            word_5_y = 0
+            speed_5 = random.randrange(1+level, 4+level)
+            rand_5 = False
+
+        SCREEN.blit(word_1, (word_1_x, word_1_y))
+        SCREEN.blit(word_2, (word_2_x, word_2_y))
+        SCREEN.blit(word_3, (word_3_x, word_3_y))
+        SCREEN.blit(word_4, (word_4_x, word_4_y))
+        SCREEN.blit(word_5, (word_5_x, word_5_y))
+        
+        word_1_y += speed_1
+        word_2_y += speed_2
+        word_3_y += speed_3
+        word_4_y += speed_4
+        word_5_y += speed_5
+
+        if word_1_y >= 800:
+            rand_1 = True
+        if word_2_y >= 800:
+            rand_2 = True
+        if word_3_y >= 800:
+            rand_3 = True
+        if word_4_y >= 800:
+            rand_4 = True
+        if word_5_y >= 800:
+            rand_5 = True
+
+        level_count -= 1
+        if level_count == 0:
+            level += 1
+            level_count = 30000
 
         pygame.display.update()
     
