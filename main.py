@@ -3,6 +3,7 @@ import random
 import os
 import sys
 from button import Button
+from pygame import mixer
 
 pygame.init()
 
@@ -13,6 +14,9 @@ pygame.display.set_caption("Acid Rain")
 clock = pygame.time.Clock()
 
 BG = pygame.image.load("rain.png")
+
+mixer.music.load('bgm.wav')
+
 
 def get_font(size): 
     return pygame.font.Font("font.ttf", size)
@@ -140,13 +144,27 @@ def options():
 
         SCREEN.fill("white")
 
-        OPTIONS_TEXT = get_font(45).render("This is the OPTIONS screen.", True, "Black")
-        OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 260))
-        SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
+        ##OPTIONS_TEXT = get_font(45).render("This is the OPTIONS screen.", True, "Black")
+        ##OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 260))
+        ##SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
 
-        OPTIONS_BACK = Button(image=None, pos=(640, 460), 
-                            text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
+        ##OPTIONS_CHARACTER = Button(image=pygame.image.load("button.png"), pos=(640, 250), 
+                            ##text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
+        OPTIONS_ON = Button(image=pygame.image.load("button.png"), pos=(640, 100), 
+                            text_input="BGM ON", font=get_font(75), base_color="White", hovering_color="Green")
+        OPTIONS_OFF = Button(image=pygame.image.load("button.png"), pos=(640, 250), 
+                            text_input="BGM OFF", font=get_font(75), base_color="White", hovering_color="Green")
+        OPTIONS_CREDITS = Button(image=pygame.image.load("button.png"), pos=(640, 400), 
+                            text_input="CREDITS", font=get_font(75), base_color="White", hovering_color="Green")
+        OPTIONS_BACK = Button(image=pygame.image.load("button.png"), pos=(640, 600), 
+                            text_input="BACK", font=get_font(75), base_color="White", hovering_color="Green")
 
+        OPTIONS_ON.changeColor(OPTIONS_MOUSE_POS)
+        OPTIONS_ON.update(SCREEN)
+        OPTIONS_OFF.changeColor(OPTIONS_MOUSE_POS)
+        OPTIONS_OFF.update(SCREEN)
+        OPTIONS_CREDITS.changeColor(OPTIONS_MOUSE_POS)
+        OPTIONS_CREDITS.update(SCREEN)
         OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
         OPTIONS_BACK.update(SCREEN)
 
@@ -157,8 +175,48 @@ def options():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
                     main_menu()
-
+                if OPTIONS_ON.checkForInput(OPTIONS_MOUSE_POS):
+                    mixer.music.play(-1)
+                if OPTIONS_OFF.checkForInput(OPTIONS_MOUSE_POS):
+                    mixer.music.stop()
+                if OPTIONS_CREDITS.checkForInput(OPTIONS_MOUSE_POS):
+                    credits()
         pygame.display.update()
+        
+
+
+def credits():
+    while True:
+        CREDITS_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+
+        CREDITS_TEXT = get_font(40).render("CREDITS TO:", True, "Yellow")
+        CREDITS_RECT = CREDITS_TEXT.get_rect(center=(640, 100))
+        SCREEN.blit(CREDITS_TEXT, CREDITS_RECT)
+        CREDITS_TEXT1 = get_font(30).render("Joon Song, Jasmine Song", True, "Yellow")
+        CREDITS_RECT1 = CREDITS_TEXT.get_rect(center=(350, 200))
+        SCREEN.blit(CREDITS_TEXT1, CREDITS_RECT1)
+        CREDITS_TEXT2 = get_font(30).render("YunSu Han, SeungHwan Hong, Sean Park", True, "Yellow")
+        CREDITS_RECT2 = CREDITS_TEXT.get_rect(center=(350, 300))
+        SCREEN.blit(CREDITS_TEXT2, CREDITS_RECT2)
+        CREDITS_TEXT3 = get_font(30).render("HeeSoo Lim, Donghyun Jung", True, "Yellow")
+        CREDITS_RECT3 = CREDITS_TEXT.get_rect(center=(350, 400))
+        SCREEN.blit(CREDITS_TEXT3, CREDITS_RECT3)
+
+        CREDITS_BACK = Button(image=pygame.image.load("button.png"), pos=(640, 550), 
+                            text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
+        CREDITS_BACK.changeColor(CREDITS_MOUSE_POS)
+        CREDITS_BACK.update(SCREEN)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if CREDITS_BACK.checkForInput(CREDITS_MOUSE_POS):
+                    options()
+        pygame.display.update()
+
 
 def main_menu():
     while True:
