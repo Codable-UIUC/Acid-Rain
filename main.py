@@ -46,7 +46,7 @@ def play():
     rand_4 = True
     rand_5 = True
     level = 0
-    level_count = 30000
+    level_clear = False
 
     while True:
         clock.tick(30)
@@ -76,53 +76,55 @@ def play():
                     main_menu()
         
         if rand_1 == True:
-            word_1 = myFont.render(dictionary[random.randrange(0, 6)], True, BLACK)
-            #level 1: randrange(0, 30)   level 2: randrange(20, 50)     level 3: randrange(40, 70)    ~~
-            # randrange(20*level, 30+20*level) level start with 0
+            word_1 = myFont.render(dictionary[random.randrange(10*level, 20+10*level)], True, BLACK)
+            #   level 0: randrange(0, 20)   level 1: randrange(10, 30)  level 2: randrange(20, 40)
+            #   level 3: randrange(30, 50)   level 4: randrange(40, 60)   level 5: randrange(50, 70)
+            #   level 6: randrange(60, 79)
+            #   randrange(10*level, 20+10*level) level start with 0
             text_Rect = word_1.get_rect()
             text_Rect.x = 10
             text_Rect.y = 10
-            word_1_x = random.randrange(0, 200)
+            word_1_x = random.randrange(0, 150)
             word_1_y = 0
             speed_1 = random.randrange(1+level, 4+level)
             rand_1 = False
         
         if rand_2 == True:
-            word_2 = myFont.render(dictionary[random.randrange(0, 6)], True, BLACK)
+            word_2 = myFont.render(dictionary[random.randrange(10*level, 20+10*level)], True, BLACK)
             text_Rect = word_2.get_rect()
             text_Rect.x = 10
             text_Rect.y = 10
-            word_2_x = random.randrange(250, 450)
+            word_2_x = random.randrange(200, 350)
             word_2_y = 0
             speed_2 = random.randrange(1+level, 4+level)
             rand_2 = False
 
         if rand_3 == True:
-            word_3 = myFont.render(dictionary[random.randrange(0, 6)], True, BLACK)
+            word_3 = myFont.render(dictionary[random.randrange(10*level, 20+10*level)], True, BLACK)
             text_Rect = word_3.get_rect()
             text_Rect.x = 10
             text_Rect.y = 10
-            word_3_x = random.randrange(500, 700)
+            word_3_x = random.randrange(400, 550)
             word_3_y = 0
             speed_3 = random.randrange(1+level, 4+level)
             rand_3 = False
 
         if rand_4 == True:
-            word_4 = myFont.render(dictionary[random.randrange(0, 6)], True, BLACK)
+            word_4 = myFont.render(dictionary[random.randrange(10*level, 20+10*level)], True, BLACK)
             text_Rect = word_4.get_rect()
             text_Rect.x = 10
             text_Rect.y = 10
-            word_4_x = random.randrange(750, 950)
+            word_4_x = random.randrange(600, 750)
             word_4_y = 0
             speed_4 = random.randrange(1+level, 4+level)
             rand_4 = False
 
         if rand_5 == True:
-            word_5 = myFont.render(dictionary[random.randrange(0, 6)], True, BLACK)
+            word_5 = myFont.render(dictionary[random.randrange(10*level, 20+10*level)], True, BLACK)
             text_Rect = word_5.get_rect()
             text_Rect.x = 10
             text_Rect.y = 10
-            word_5_x = random.randrange(1000, 1200)
+            word_5_x = random.randrange(800, 950)
             word_5_y = 0
             speed_5 = random.randrange(1+level, 4+level)
             rand_5 = False
@@ -150,10 +152,21 @@ def play():
         if word_5_y >= 800:
             rand_5 = True
 
-        level_count -= 1
-        if level_count == 0:
+        if level_clear == True:
             level += 1
-            level_count = 30000
+
+        myFont = pygame.font.SysFont("arial", 20, True, True)
+        level_Title = myFont.render("LEVEL: ", True, BLACK)
+        level_Rect = level_Title.get_rect()
+        level_Rect.x = 1100
+        level_Rect.y = 10
+        SCREEN.blit(level_Title, level_Rect)
+
+        level_Title2 = myFont.render(str((level)), True, BLACK)
+        level_Rect2 = level_Title2.get_rect()
+        level_Rect2.x = 1200
+        level_Rect2.y = 10
+        SCREEN.blit(level_Title2, level_Rect2)
 
         pygame.display.update()
     
