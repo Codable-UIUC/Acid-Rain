@@ -47,6 +47,18 @@ def play():
     rand_5 = True
     level = 0
     level_clear = False
+    word_count = 0
+    user_text = ''
+    input_rect = pygame.Rect(450, 660, 120, 30)
+    color_active = pygame.Color('lightskyblue')
+    color_passive = pygame.Color('blue')
+    color = color_passive
+    active = False
+    w1 = 0
+    w2 = 0
+    w3 = 0
+    w4 = 0
+    w5 = 0
 
     while True:
         clock.tick(30)
@@ -74,9 +86,31 @@ def play():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
                     main_menu()
+                if input_rect.collidepoint(event.pos):
+                    active = True
+                else:
+                    active = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_BACKSPACE:
+                    user_text = user_text[:-1]
+                else:
+                    user_text += event.unicode
+        if active:
+            color = color_active
+        else:
+            color = color_passive
+
+        pygame.draw.rect(SCREEN, color, input_rect)
+        text_surface = myFont.render(user_text, True, BLACK)
+        SCREEN.blit(text_surface, (input_rect.x+5, input_rect.y+5))
+
+        print(user_text)    # to cheack input
+
+        input_rect.w = max(100, text_surface.get_width()+10)
         
         if rand_1 == True:
-            word_1 = myFont.render(dictionary[random.randrange(10*level, 20+10*level)], True, BLACK)
+            w1 = dictionary[random.randrange(10*level, 20+10*level)]
+            word_1 = myFont.render(w1, True, BLACK)
             #   level 0: randrange(0, 20)   level 1: randrange(10, 30)  level 2: randrange(20, 40)
             #   level 3: randrange(30, 50)   level 4: randrange(40, 60)   level 5: randrange(50, 70)
             #   level 6: randrange(60, 79)
@@ -90,7 +124,8 @@ def play():
             rand_1 = False
         
         if rand_2 == True:
-            word_2 = myFont.render(dictionary[random.randrange(10*level, 20+10*level)], True, BLACK)
+            w2 = dictionary[random.randrange(10*level, 20+10*level)]
+            word_2 = myFont.render(w2, True, BLACK)
             text_Rect = word_2.get_rect()
             text_Rect.x = 10
             text_Rect.y = 10
@@ -100,7 +135,8 @@ def play():
             rand_2 = False
 
         if rand_3 == True:
-            word_3 = myFont.render(dictionary[random.randrange(10*level, 20+10*level)], True, BLACK)
+            w3 = dictionary[random.randrange(10*level, 20+10*level)]
+            word_3 = myFont.render(w3, True, BLACK)
             text_Rect = word_3.get_rect()
             text_Rect.x = 10
             text_Rect.y = 10
@@ -110,7 +146,8 @@ def play():
             rand_3 = False
 
         if rand_4 == True:
-            word_4 = myFont.render(dictionary[random.randrange(10*level, 20+10*level)], True, BLACK)
+            w4 = dictionary[random.randrange(10*level, 20+10*level)]
+            word_4 = myFont.render(w4, True, BLACK)
             text_Rect = word_4.get_rect()
             text_Rect.x = 10
             text_Rect.y = 10
@@ -120,7 +157,8 @@ def play():
             rand_4 = False
 
         if rand_5 == True:
-            word_5 = myFont.render(dictionary[random.randrange(10*level, 20+10*level)], True, BLACK)
+            w5 = dictionary[random.randrange(10*level, 20+10*level)]
+            word_5 = myFont.render(w5, True, BLACK)
             text_Rect = word_5.get_rect()
             text_Rect.x = 10
             text_Rect.y = 10
@@ -141,15 +179,36 @@ def play():
         word_4_y += speed_4
         word_5_y += speed_5
 
-        if word_1_y >= 800:
+        if user_text == w1:
             rand_1 = True
-        if word_2_y >= 800:
+            word_count += 1
+            user_text = ''
+        if user_text == w2:
             rand_2 = True
-        if word_3_y >= 800:
+            word_count += 1
+            user_text = ''
+        if user_text == w3:
             rand_3 = True
-        if word_4_y >= 800:
+            word_count += 1
+            user_text = ''
+        if user_text == w4:
             rand_4 = True
-        if word_5_y >= 800:
+            word_count += 1
+            user_text = ''
+        if user_text == w5:
+            rand_5 = True
+            word_count += 1
+            user_text = ''
+
+        if word_1_y >= 620:
+            rand_1 = True
+        if word_2_y >= 620:
+            rand_2 = True
+        if word_3_y >= 620:
+            rand_3 = True
+        if word_4_y >= 620:
+            rand_4 = True
+        if word_5_y >= 620:
             rand_5 = True
 
         if level_clear == True:
@@ -167,6 +226,18 @@ def play():
         level_Rect2.x = 1200
         level_Rect2.y = 10
         SCREEN.blit(level_Title2, level_Rect2)
+
+        word_Title = myFont.render("Word Count: ", True, BLACK)
+        level_Rect = word_Title.get_rect()
+        level_Rect.x = 1100
+        level_Rect.y = 35
+        SCREEN.blit(word_Title, level_Rect)
+
+        word_Title2 = myFont.render(str((word_count)), True, BLACK)
+        level_Rect2 = word_Title2.get_rect()
+        level_Rect2.x = 1250
+        level_Rect2.y = 35
+        SCREEN.blit(word_Title2, level_Rect2)
 
         pygame.display.update()
     
