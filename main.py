@@ -22,7 +22,24 @@ def get_font(size):
     return pygame.font.Font("font.ttf", size)
 
 def play():
-    dictionary = ["apple", "banana", "cat", "dog", "egg", "frog", "goal"]
+    dictionary = [  "abaca", "agars", "based", "beget", "cease",
+                    "cared", "dwarf", "draws", "eager", "eased",
+                    "favas", "fewer", "gears", "geste", "refed",
+                    "rewed", "sabed", "scabs", "swarf", "tates",    # Easy
+                    "attest", "averts", "bardes", "bazars", "carafe", 
+                    "decare", "deface", "estate", "evaded", "facade", 
+                    "fatwas", "fessed", "grater", "rabats", "ragbag",
+                    "scatts", "screws", "tasset", "wagger", "xebecs",   # Meduim
+                    "abraders", "asserter", "beverage", "braggers", "catawbas",
+                    "debaters", "degasses", "effected", "egresses", "feedbags", 
+                    "gabfests", "grabbers", "refracts", "reverter", "scarcest",
+                    "serrates", "tattered", "warcraft", "wattages", "zareebas", # Hard
+                    "aftereffect", "asseverates", "beggarweeds", "crabgrasses", "decerebrate",
+                    "desegregate", "effervesced", "effervesces", "exacerbates", "exaggerated",
+                    "extravagate", "readdressed", "reaggregate", "resegregate", "revegetated",
+                    "sassafrases", "stagecrafts", "stavesacres", "tradecrafts", "wastewaters"   # Extreme
+                ]
+    #(index 0~19): Easy (index 20~39): Medium (index 40~59): Hard (index 60~79): Extreme
     rand_1 = True
     rand_2 = True
     rand_3 = True
@@ -60,6 +77,8 @@ def play():
         
         if rand_1 == True:
             word_1 = myFont.render(dictionary[random.randrange(0, 6)], True, BLACK)
+            #level 1: randrange(0, 30)   level 2: randrange(20, 50)     level 3: randrange(40, 70)    ~~
+            # randrange(20*level, 30+20*level) level start with 0
             text_Rect = word_1.get_rect()
             text_Rect.x = 10
             text_Rect.y = 10
