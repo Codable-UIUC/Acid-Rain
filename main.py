@@ -9,6 +9,9 @@ pygame.init()
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+RED = (128, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 128)
 SCREEN = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption("Acid Rain")
 clock = pygame.time.Clock()
@@ -48,6 +51,8 @@ def play():
     rand_5 = True
     level = 0
     level_clear = False
+    miss = 0
+    gameOver = False
     word_count = 0
     user_text = ''
     input_rect = pygame.Rect(450, 660, 120, 30)
@@ -203,17 +208,33 @@ def play():
 
         if word_1_y >= 620:
             rand_1 = True
+            miss += 1
         if word_2_y >= 620:
             rand_2 = True
+            miss += 1
         if word_3_y >= 620:
             rand_3 = True
+            miss += 1
         if word_4_y >= 620:
             rand_4 = True
+            miss += 1
         if word_5_y >= 620:
             rand_5 = True
+            miss += 1
 
         if level_clear == True:
             level += 1
+            miss = 0
+            level_clear = False
+
+        if word_count % 20 == 19:
+            level_clear = True
+
+        if (word_count == 2):
+            gameOver = True
+        
+        if gameOver == True:
+            break
 
         myFont = pygame.font.SysFont("arial", 20, True, True)
         level_Title = myFont.render("LEVEL: ", True, BLACK)
@@ -241,6 +262,29 @@ def play():
         SCREEN.blit(word_Title2, level_Rect2)
 
         pygame.display.update()
+    
+    myFont_1 = pygame.font.SysFont("arial", 50, True, True)
+    endText = myFont_1.render("GAME OVER",True, RED)
+    endText_rect = endText.get_rect()
+    endText_rect.center = (640, 100) 
+
+    endText1 = myFont_1.render("Total Word Count: "+str((word_count))+"", True, GREEN)
+    endText1_rect = endText1.get_rect()
+    endText1_rect.center = (640, 150)
+
+    endText2 = myFont_1.render("Press ESC to Quit", True, BLUE)
+    endText2_rect = endText2.get_rect()
+    endText2_rect.center = (640, 200)
+
+    while gameOver:
+        SCREEN.blit(endText, endText_rect)
+        SCREEN.blit(endText1, endText1_rect)
+        SCREEN.blit(endText2, endText2_rect)
+        pygame.display.update()
+        for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        main_menu()
     
 def options():
     while True:
