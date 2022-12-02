@@ -16,6 +16,7 @@ clock = pygame.time.Clock()
 BG = pygame.image.load("rain.png")
 
 mixer.music.load('bgm.wav')
+mixer.music.play(-1)
 
 
 def get_font(size): 
@@ -243,9 +244,9 @@ def play():
     
 def options():
     while True:
+        
         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
-
-        SCREEN.fill("white")
+        SCREEN.blit(BG, (0,0))
 
         ##OPTIONS_TEXT = get_font(45).render("This is the OPTIONS screen.", True, "Black")
         ##OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 260))
