@@ -96,7 +96,7 @@ def play():
                     active = True
                 else:
                     active = False
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN and active:
                 if event.key == pygame.K_BACKSPACE:
                     user_text = user_text[:-1]
                 else:
