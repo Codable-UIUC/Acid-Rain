@@ -112,7 +112,7 @@ def play():
         
         if rand_1 == True:
             w1 = dictionary[random.randrange(10*level, 20+10*level)]
-            word_1 = myFont.render(w1, True, BLACK)
+            word_1 = myFont.render(w1, True, WHITE)
             #   level 0: randrange(0, 20)   level 1: randrange(10, 30)  level 2: randrange(20, 40)
             #   level 3: randrange(30, 50)   level 4: randrange(40, 60)   level 5: randrange(50, 70)
             #   level 6: randrange(60, 79)
@@ -127,7 +127,7 @@ def play():
         
         if rand_2 == True:
             w2 = dictionary[random.randrange(10*level, 20+10*level)]
-            word_2 = myFont.render(w2, True, BLACK)
+            word_2 = myFont.render(w2, True, WHITE)
             text_Rect = word_2.get_rect()
             text_Rect.x = 10
             text_Rect.y = 10
@@ -138,7 +138,7 @@ def play():
 
         if rand_3 == True:
             w3 = dictionary[random.randrange(10*level, 20+10*level)]
-            word_3 = myFont.render(w3, True, BLACK)
+            word_3 = myFont.render(w3, True, WHITE)
             text_Rect = word_3.get_rect()
             text_Rect.x = 10
             text_Rect.y = 10
@@ -149,7 +149,7 @@ def play():
 
         if rand_4 == True:
             w4 = dictionary[random.randrange(10*level, 20+10*level)]
-            word_4 = myFont.render(w4, True, BLACK)
+            word_4 = myFont.render(w4, True, WHITE)
             text_Rect = word_4.get_rect()
             text_Rect.x = 10
             text_Rect.y = 10
@@ -160,7 +160,7 @@ def play():
 
         if rand_5 == True:
             w5 = dictionary[random.randrange(10*level, 20+10*level)]
-            word_5 = myFont.render(w5, True, BLACK)
+            word_5 = myFont.render(w5, True, WHITE)
             text_Rect = word_5.get_rect()
             text_Rect.x = 10
             text_Rect.y = 10
@@ -233,25 +233,25 @@ def play():
             break
 
         myFont = pygame.font.SysFont("arial", 20, True, True)
-        level_Title = myFont.render("LEVEL: ", True, BLACK)
+        level_Title = myFont.render("LEVEL: ", True, WHITE)
         level_Rect = level_Title.get_rect()
         level_Rect.x = 1100
         level_Rect.y = 10
         SCREEN.blit(level_Title, level_Rect)
 
-        level_Title2 = myFont.render(str((level)), True, BLACK)
+        level_Title2 = myFont.render(str((level)), True, WHITE)
         level_Rect2 = level_Title2.get_rect()
         level_Rect2.x = 1200
         level_Rect2.y = 10
         SCREEN.blit(level_Title2, level_Rect2)
 
-        word_Title = myFont.render("Word Count: ", True, BLACK)
+        word_Title = myFont.render("Word Count: ", True, WHITE)
         level_Rect = word_Title.get_rect()
         level_Rect.x = 1100
         level_Rect.y = 35
         SCREEN.blit(word_Title, level_Rect)
 
-        word_Title2 = myFont.render(str((word_count)), True, BLACK)
+        word_Title2 = myFont.render(str((word_count)), True, WHITE)
         level_Rect2 = word_Title2.get_rect()
         level_Rect2.x = 1250
         level_Rect2.y = 35
