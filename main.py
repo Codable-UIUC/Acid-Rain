@@ -225,12 +225,16 @@ def play():
 
         if word_count != 0 and word_count % 20 == 0:
             level_clear = True
-
-        if (word_count == 2):
-            gameOver = True
         
         if gameOver == True:
             break
+
+        ph_level = [7.0, 6.7, 6.3, 6.0, 5.7, 5.3, 5.0, 4.7, 4.3, 4.0, 3.7, 3.3, 3.0, 2.7, 2.3, 2.0, 1.7, 1.3, 1.0, 0.7, 0.3, 0]
+        
+        curr_ph = ph_level[miss]
+
+        if curr_ph == 0:
+            gameOver = True
 
         myFont = pygame.font.SysFont("arial", 20, True, True)
         level_Title = myFont.render("LEVEL: ", True, WHITE)
@@ -256,6 +260,72 @@ def play():
         level_Rect2.x = 1250
         level_Rect2.y = 35
         SCREEN.blit(word_Title2, level_Rect2)
+
+        ph_Level = myFont.render("PH Level: ", True, WHITE)
+        level_Rect = ph_Level.get_rect()
+        level_Rect.x = 1100
+        level_Rect.y = 60
+        SCREEN.blit(ph_Level, level_Rect)
+
+        ph_text = myFont.render(str((curr_ph)), True, WHITE)
+        level_Rect2 = ph_text.get_rect()
+        level_Rect2.x = 1220
+        level_Rect2.y = 60
+        SCREEN.blit(ph_text, level_Rect2)
+
+        ph_visual = pygame.Rect(1100, 140, 70, 420)
+        pygame.draw.rect(SCREEN, WHITE, ph_visual)
+        pygame.draw.rect(SCREEN, BLACK, ph_visual, 5)
+
+        pygame.draw.line(SCREEN, BLUE, [1100, 140 + miss * 20], [1210, 140 + miss * 20], 5)
+
+        ph_7 = myFont.render("7.0", True, WHITE)
+        level_Rect = ph_7.get_rect()
+        level_Rect.x = 1230
+        level_Rect.y = 130
+        SCREEN.blit(ph_7, level_Rect)
+
+        ph_6 = myFont.render("6.0", True, WHITE)
+        level_Rect = ph_7.get_rect()
+        level_Rect.x = 1230
+        level_Rect.y = 190
+        SCREEN.blit(ph_6, level_Rect)
+
+        ph_5 = myFont.render("5.0", True, WHITE)
+        level_Rect = ph_7.get_rect()
+        level_Rect.x = 1230
+        level_Rect.y = 250
+        SCREEN.blit(ph_5, level_Rect)
+
+        ph_4 = myFont.render("4.0", True, WHITE)
+        level_Rect = ph_7.get_rect()
+        level_Rect.x = 1230
+        level_Rect.y = 310
+        SCREEN.blit(ph_4, level_Rect)
+
+        ph_3 = myFont.render("3.0", True, WHITE)
+        level_Rect = ph_7.get_rect()
+        level_Rect.x = 1230
+        level_Rect.y = 370
+        SCREEN.blit(ph_3, level_Rect)
+
+        ph_2 = myFont.render("2.0", True, WHITE)
+        level_Rect = ph_7.get_rect()
+        level_Rect.x = 1230
+        level_Rect.y = 430
+        SCREEN.blit(ph_2, level_Rect)
+
+        ph_1 = myFont.render("1.0", True, WHITE)
+        level_Rect = ph_7.get_rect()
+        level_Rect.x = 1230
+        level_Rect.y = 490
+        SCREEN.blit(ph_1, level_Rect)
+
+        ph_0 = myFont.render("0.0", True, WHITE)
+        level_Rect = ph_7.get_rect()
+        level_Rect.x = 1230
+        level_Rect.y = 550
+        SCREEN.blit(ph_0, level_Rect)
 
         pygame.display.update()
     
