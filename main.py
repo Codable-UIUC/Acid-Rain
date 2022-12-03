@@ -71,8 +71,6 @@ def play():
 
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
 
-        SCREEN.fill(WHITE)
-
         # PLAY_TEXT = get_font(45).render("This is the PLAY screen.", True, "White")
         # PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 260))
         # SCREEN.blit(PLAY_TEXT, PLAY_RECT)
@@ -227,7 +225,7 @@ def play():
             miss = 0
             level_clear = False
 
-        if word_count % 20 == 19:
+        if word_count != 0 and word_count % 20 == 0:
             level_clear = True
 
         if (word_count == 2):
