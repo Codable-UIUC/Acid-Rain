@@ -26,20 +26,24 @@ def get_font(size):
     return pygame.font.Font("font.ttf", size)
 
 def play():
-    dictionary = [  "abaca", "agars", "based", "beget", "cease",
-                    "cared", "dwarf", "draws", "eager", "eased",
-                    "favas", "fewer", "gears", "geste", "refed",
-                    "rewed", "sabed", "scabs", "swarf", "tates",    # Easy
-                    "attest", "averts", "bardes", "bazars", "carafe", 
-                    "decare", "deface", "estate", "evaded", "facade", 
-                    "fatwas", "fessed", "grater", "rabats", "ragbag",
-                    "scatts", "screws", "tasset", "wagger", "xebecs",   # Meduim
-                    "abraders", "asserter", "beverage", "braggers", "catawbas",
-                    "debaters", "degasses", "effected", "egresses", "feedbags", 
+    dictionary = [  "dog", "cat", "horse", "fish", "fox",
+                    "cared", "python", "draws", "eagle", "beetle",
+                    "ramen", "hurt", "champaign", "beaver", "dolphin",
+                    "codable", "illinois", "chicago", "tiger", "lion",    # Easy
+                    "computer", "science", "sakanaya", "yogi", "arirang", 
+                    "miaza", "grainger", "brewlab", "county", "cravings", 
+                    "panda", "subway", "kams", "redlion", "murphys",
+                    "chipotle", "bbq", "legends", "urbana", "circlek",   # Meduim
+                    "toyko", "seoul", "beverage", "beer", "beijing",
+                    "berlin", "soju", "effected", "egresses", "feedbags", 
+                    "gabfests", "grabbers", "refracts", "reverter", "scarcest",
+                    "c++", "programming", "milano", "football", "soccer", # Med-Hard
+                    "basketball", "baseball", "chicken", "kitchen", "bichon",
+                    "russia", "korea", "japan", "usa", "feedbags", 
                     "gabfests", "grabbers", "refracts", "reverter", "scarcest",
                     "serrates", "tattered", "warcraft", "wattages", "zareebas", # Hard
-                    "aftereffect", "asseverates", "beggarweeds", "crabgrasses", "decerebrate",
-                    "desegregate", "effervesced", "effervesces", "exacerbates", "exaggerated",
+                    "we are codable", "everyone can code", "double dark chocolate", "mario party", "super stars",
+                    "play station 5", "play station 4", "play station 3", "play station 2", "play station 1",
                     "extravagate", "readdressed", "reaggregate", "resegregate", "revegetated",
                     "sassafrases", "stagecrafts", "stavesacres", "tradecrafts", "wastewaters"   # Extreme
                 ]
@@ -56,7 +60,7 @@ def play():
     word_count = 0
     user_text = ''
     input_rect = pygame.Rect(450, 660, 120, 30)
-    color_active = pygame.Color('lightskyblue')
+    color_active = pygame.Color('white')
     color_passive = pygame.Color('blue')
     color = color_passive
     active = False
@@ -65,6 +69,8 @@ def play():
     w3 = 0
     w4 = 0
     w5 = 0
+
+    word_set = set()
 
     while True:
         clock.tick(30)
@@ -76,8 +82,7 @@ def play():
         # PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 260))
         # SCREEN.blit(PLAY_TEXT, PLAY_RECT)
 
-        myFont = pygame.font.SysFont("arial", 20, False, True)
-
+        myFont = pygame.font.SysFont("arial", 25, False, True)
         
 
         for event in pygame.event.get():
@@ -102,16 +107,21 @@ def play():
         else:
             color = color_passive
 
+        input_rect.w = 300 #max(100, text_surface.get_width()+20)
+        input_rect.h = 38
+        input_rect.centerx = 640
         pygame.draw.rect(SCREEN, color, input_rect)
         text_surface = myFont.render(user_text, True, BLACK)
         SCREEN.blit(text_surface, (input_rect.x+5, input_rect.y+5))
 
         print(user_text)    # to cheack input
-
-        input_rect.w = max(100, text_surface.get_width()+10)
         
         if rand_1 == True:
-            w1 = dictionary[random.randrange(10*level, 20+10*level)]
+            w1 = dictionary[random.randrange(10*level, 40+10*level)]
+            while w1 in word_set:
+                w1 = dictionary[random.randrange(10*level, 40+10*level)]
+            word_set.add(w1)
+
             word_1 = myFont.render(w1, True, WHITE)
             #   level 0: randrange(0, 20)   level 1: randrange(10, 30)  level 2: randrange(20, 40)
             #   level 3: randrange(30, 50)   level 4: randrange(40, 60)   level 5: randrange(50, 70)
@@ -126,7 +136,10 @@ def play():
             rand_1 = False
         
         if rand_2 == True:
-            w2 = dictionary[random.randrange(10*level, 20+10*level)]
+            w2 = dictionary[random.randrange(10*level, 40+10*level)]
+            while w2 in word_set:
+                w2 = dictionary[random.randrange(10*level, 40+10*level)]
+            word_set.add(w2)
             word_2 = myFont.render(w2, True, WHITE)
             text_Rect = word_2.get_rect()
             text_Rect.x = 10
@@ -137,7 +150,10 @@ def play():
             rand_2 = False
 
         if rand_3 == True:
-            w3 = dictionary[random.randrange(10*level, 20+10*level)]
+            w3 = dictionary[random.randrange(10*level, 40+10*level)]
+            while w3 in word_set:
+                w3 = dictionary[random.randrange(10*level, 40+10*level)]
+            word_set.add(w3)
             word_3 = myFont.render(w3, True, WHITE)
             text_Rect = word_3.get_rect()
             text_Rect.x = 10
@@ -148,7 +164,10 @@ def play():
             rand_3 = False
 
         if rand_4 == True:
-            w4 = dictionary[random.randrange(10*level, 20+10*level)]
+            w4 = dictionary[random.randrange(10*level, 40+10*level)]
+            while w4 in word_set:
+                w4 = dictionary[random.randrange(10*level, 40+10*level)]
+            word_set.add(w4)
             word_4 = myFont.render(w4, True, WHITE)
             text_Rect = word_4.get_rect()
             text_Rect.x = 10
@@ -159,7 +178,10 @@ def play():
             rand_4 = False
 
         if rand_5 == True:
-            w5 = dictionary[random.randrange(10*level, 20+10*level)]
+            w5 = dictionary[random.randrange(10*level, 40+10*level)]
+            while w5 in word_set:
+                w5 = dictionary[random.randrange(10*level, 40+10*level)]
+            word_set.add(w5)
             word_5 = myFont.render(w5, True, WHITE)
             text_Rect = word_5.get_rect()
             text_Rect.x = 10
@@ -185,22 +207,27 @@ def play():
             rand_1 = True
             word_count += 1
             user_text = ''
+            word_set.remove(w1)
         if user_text == w2:
             rand_2 = True
             word_count += 1
             user_text = ''
+            word_set.remove(w2)
         if user_text == w3:
             rand_3 = True
             word_count += 1
             user_text = ''
+            word_set.remove(w3)
         if user_text == w4:
             rand_4 = True
             word_count += 1
             user_text = ''
+            word_set.remove(w4)
         if user_text == w5:
             rand_5 = True
             word_count += 1
             user_text = ''
+            word_set.remove(w5)
 
         if word_1_y >= 620:
             rand_1 = True
@@ -277,7 +304,9 @@ def play():
         pygame.draw.rect(SCREEN, WHITE, ph_visual)
         pygame.draw.rect(SCREEN, BLACK, ph_visual, 5)
 
-        pygame.draw.line(SCREEN, BLUE, [1100, 140 + miss * 20], [1210, 140 + miss * 20], 5)
+        pygame.draw.line(SCREEN, (200, 0, 0), [1100, 140 + miss * 20], [1210, 140 + miss * 20], 5)
+
+        # pygame.draw.line(SCREEN, BLUE, [0, 645], [1280, 645], width=5)
 
         ph_7 = myFont.render("7.0", True, WHITE)
         level_Rect = ph_7.get_rect()
@@ -413,7 +442,7 @@ def credits():
         CREDITS_TEXT2 = get_font(30).render("YunSu Han, SeungHwan Hong, Sean Park", True, "Yellow")
         CREDITS_RECT2 = CREDITS_TEXT.get_rect(center=(350, 300))
         SCREEN.blit(CREDITS_TEXT2, CREDITS_RECT2)
-        CREDITS_TEXT3 = get_font(30).render("HeeSoo Lim, Donghyun Jung", True, "Yellow")
+        CREDITS_TEXT3 = get_font(30).render("HeeSoo Lim, Donghyeon Jeong", True, "Yellow")
         CREDITS_RECT3 = CREDITS_TEXT.get_rect(center=(350, 400))
         SCREEN.blit(CREDITS_TEXT3, CREDITS_RECT3)
 
